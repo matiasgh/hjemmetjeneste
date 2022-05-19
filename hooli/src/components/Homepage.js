@@ -28,7 +28,10 @@ export default function Homepage() {
                 {error && <Alert variant="danger">{error}</Alert>}
                 <strong>Email: </strong> {currentUser.email}
                 <Link to="/update-profile" className="btn btn-primary w-100 mt-3">
-                    Update Profile
+                    Oppdater Profil
+                </Link>
+                <Link to="/client-overview" className="btn btn-primary w-100 mt-3">
+                    Klient oversikt
                 </Link>
             </Card.Body>
         </Card>
