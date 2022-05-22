@@ -4,6 +4,8 @@ import { useAuth } from "../context/AuthContext"
 import app from "../firebase"
 import { FiPhone, FiHome } from "react-icons/fi";
 import { Link, useNavigate } from "react-router-dom"
+import {GetBathroom2Hook} from './DisruptiveAPIAccess.js'
+
 
 export default function ClientOverview() {
   const [patients, setPatients] = useState()
@@ -11,6 +13,16 @@ export default function ClientOverview() {
 
   const ref = app.firestore().collection("Instutisjon").doc("Jessheim Hjemmetjeneste").collection("Pasienter")
 
+
+  //sorry for rot haha
+  //sensor-api-hooks
+
+  const BATHROOM_SENSORID2 = 'bj9tmr3fvtng00a964j0'
+  const baderomEn= 'bj9tpt41bddg00fbmi6g'
+  const [bathRoom1, lastDate1, fromNow1] = GetBathroom2Hook(baderomEn);
+  const [bathRoom2, lastDate2, fromNow2] = GetBathroom2Hook(BATHROOM_SENSORID2);
+
+  //
   useEffect(() => {
     let unsubscribe = ref.get().then((item) => {
       const items = item.docs.map((doc) => doc.data())
@@ -42,7 +54,7 @@ export default function ClientOverview() {
                     <br/>
                     Sist aktiv dørsensor:
                   </h6>
-                    {patient.Aktiv}
+                    {(patient.Navn=="Kristian Henriksen") ? fromNow1 : fromNow2}
                     <br/>
                     <br/>
                     <h6>
