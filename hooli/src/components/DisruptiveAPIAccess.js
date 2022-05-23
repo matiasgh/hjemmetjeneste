@@ -93,33 +93,30 @@ async function GetBathRoomWithArg (sensorID) {
             parameters
             ,
         )
-    ///test
-        // Print all results
+        
+        // add to list and return
         let output = []
         for (let i = 0; i < results.length; i++) {
-            console.log(results[i].data.objectPresent)
             output.push(Object.entries(results[i].data.objectPresent)) //retrives event data from object
         }
-        console.log("output", output)
         return output;
 
 }
 
-//getBathRoom1().catch((err) => {console.log(err)}).then(test => {console.log(test)})
-
-//Se main for hvordan man bruker. Er bare aa sette inn, saa bruke liste[element][element]
+//generic hook - add sensorID
 export function GetBathroom2Hook(sensorID){
     const [bathRoom, setBathroom] = useState("none");
     const [lastDate, setLastDate] = useState("none");
     const [timeFromNow, setTimeFromNow] = useState("none");
     
-
     //componentdidload
     useEffect(() => {
-        GetBathRoomWithArg(sensorID).catch((err) => {console.log(err)}).then(test => {
-            setBathroom(test)
-            setLastDate(test[0][1][1])
-            setTimeFromNow(moment.utc(test[0][1][1]).local().startOf('seconds').fromNow())
+        GetBathRoomWithArg(sensorID).catch((err) => {console.log(err)}).then(events => {
+            setBathroom(events)
+            if (events!=[]){
+                setLastDate(events[0][1][1])
+                setTimeFromNow(moment.utc(events[0][1][1]).local().startOf('seconds').fromNow())
+            }
         })
             
     }, [])

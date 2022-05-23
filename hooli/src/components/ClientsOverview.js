@@ -18,9 +18,12 @@ export default function ClientOverview() {
   //sensor-api-hooks
 
   const BATHROOM_SENSORID2 = 'bj9tmr3fvtng00a964j0'
-  const baderomEn= 'bj9tpt41bddg00fbmi6g'
-  const [bathRoom1, lastDate1, fromNow1] = GetBathroom2Hook(baderomEn);
+  const BATHROOM_ONE_SENSORID= 'bj9tpt41bddg00fbmi6g'
+  const BEDROOM_ONE_SENSORID = 'bj9sf6v7cdlg00b9vf50'
+  const [bathRoom1, lastDate1, fromNow1] = GetBathroom2Hook(BATHROOM_ONE_SENSORID);
   const [bathRoom2, lastDate2, fromNow2] = GetBathroom2Hook(BATHROOM_SENSORID2);
+  const [bathRoom3, lastDate3, fromNow3] = GetBathroom2Hook(BEDROOM_ONE_SENSORID);
+
 
   //
   useEffect(() => {
@@ -54,7 +57,11 @@ export default function ClientOverview() {
                     <br/>
                     Sist aktiv dørsensor:
                   </h6>
-                    {(patient.Navn=="Kristian Henriksen") ? fromNow1 : fromNow2}
+                    {(patient.Navn=="Kristian Henriksen") ? fromNow1 : null}
+                    {(patient.Navn=="Kristine Nygaard") ? fromNow2 : null}
+                    {(patient.Navn=="Per Andersen") ? fromNow3 : null}
+
+
                     <br/>
                     <br/>
                     <h6>
